@@ -1,0 +1,235 @@
+
+# CodeBook for tidy dataset
+# Raw Data source
+The data used for this project was data collected from the accelerometers from the Samsung Galaxy S smartphone.
+This dataset is derived from the "Human Activity Recognition Using Smartphones Data Set" which was originally made avaiable here: 
+     http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+Here are the data for the project:
+	https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+# Data Set Information:
+
+==================================================================
+Human Activity Recognition Using Smartphones Dataset
+Version 1.0
+==================================================================
+Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
+Smartlab - Non Linear Complex Systems Laboratory
+DITEN - Università degli Studi di Genova.
+Via Opera Pia 11A, I-16145, Genoa, Italy.
+activityrecognition@smartlab.ws
+www.smartlab.ws
+==================================================================
+
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
+
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.
+
+For each record it is provided:
+======================================
+- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
+- Triaxial Angular velocity from the gyroscope. 
+- A 561-feature vector with time and frequency domain variables. 
+- Its activity label. 
+- An identifier of the subject who carried out the experiment.
+
+The dataset includes the following files:
+=========================================
+- 'README.txt'
+- 'features_info.txt'	: Shows information about the variables used on the feature vector.
+- 'features.txt'		: List of all features.
+- 'activity_labels.txt'	: Links the class labels with their activity name.
+- 'train/X_train.txt'	: Training set.
+- 'train/y_train.txt'	: Training labels.
+- 'test/X_test.txt'		: Test set.
+- 'test/y_test.txt'		: Test labels.
+
+The following files are available for the train and test data. Their descriptions are equivalent. 
+- 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
+- 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis. 
+
+- 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration. 
+- 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
+
+Notes: 
+======
+- Features are normalized and bounded within [-1,1].
+- Each feature vector is a row on the text file.
+
+For more information about this dataset contact: activityrecognition@smartlab.ws
+
+# About R Script 
+
+I created R Script called run_analysis.R to do the following:
+
+1. Merges the training and the test sets to create one data set.
+2. Extracts only the measurements on the mean and standard deviation for each measurement.
+3. Uses descriptive activity names to name the activities in the data set
+4. Appropriately labels the data set with descriptive variable names.
+5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+# Storing of Raw Data - UCI HAR Dataset in your local Directory
+
+ Data needs to be extracted in the following Local directory for the run_analysis.R script to Work
+ D:\LND\COURSERA_R\data\UCI HAR Dataset
+ D:\LND\COURSERA_R\data\UCI HAR Dataset\test
+ D:\LND\COURSERA_R\data\UCI HAR Dataset\train
+ 
+UCI HAR Dataset must be availble in a directory called "UCI HAR Dataset"
+After merging testing and training, labels are added and only columns that have to do with mean and standard deviation are kept
+
+run_analysis.R Script has notes and Steps as well.
+
+Features Selected in this assignment explicitly states "Extracts only the measurements on the mean and standard deviation for each measurement." To be complete therefore I included all variables having to do with mean or standard deviation.
+
+In short, for this derived dataset, these signals were used to estimate variables of the feature vector for each pattern:
+'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+
+tBodyAcc-XYZ
+tGravityAcc-XYZ
+tBodyAccJerk-XYZ
+tBodyGyro-XYZ
+tBodyGyroJerk-XYZ
+tBodyAccMag
+tGravityAccMag
+tBodyAccJerkMag
+tBodyGyroMag
+tBodyGyroJerkMag
+fBodyAcc-XYZ
+fBodyAccJerk-XYZ
+fBodyGyro-XYZ
+fBodyAccMag
+fBodyAccJerkMag
+fBodyGyroMag
+fBodyGyroJerkMag
+The set of variables that were estimated (and kept for this assignment) from these signals are:
+
+mean(): Mean value
+std(): Standard deviation
+Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
+
+gravityMean
+tBodyAccMean
+tBodyAccJerkMean
+tBodyGyroMean
+tBodyGyroJerkMean
+Other estimates have been removed for the purpose of this excercise.
+
+Note: features are normalized and bounded within [-1,1].
+
+The resulting variable names are of the following form: tbodyaccmeanx, which means the mean value of tBodyAcc-XYZ.
+
+## run_analysis.R
+###############################################################################################
+# Script:run_analysis.R                                                                       #   
+# CODE BOOK			Created By: RAVI PRATAP FEB 2016                 					      #			
+# Setting Working Directory to the Data Storage in my Local Drive                             #
+# Use the Data link to Get the data for this Project                                          #
+# https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip      #
+# Extract the files to R Working Files                                                        #
+###############################################################################################
+
+###############################################################################################
+## Setting Working Directory to the Data Storage in my Local Drive                            #
+###############################################################################################
+library(dplyr)
+setwd("D:/LND/COURSERA_R/data/UCI HAR Dataset")
+
+###############################################################################################
+#  Reading Raw Data txt files 																  #
+#- 'features_info.txt': Shows information about the variables used on the feature vector.     #
+#- 'features.txt': List of all features.													  #						
+#- 'activity_labels.txt': Links the class labels with their activity name.                    #
+#- 'train/X_train.txt': Training set.                                                         #
+#- 'train/y_train.txt': Training labels.                                                      #
+#- 'test/X_test.txt': Test set.                                                               #  
+#- 'test/y_test.txt': Test labels.                                                            #
+############################################################################################### 
+
+X_train <- read.table("train/X_train.txt", quote="\"")
+y_train <- read.table("train/y_train.txt", quote="\"")
+subject_train <- read.table("train/subject_train.txt", quote="\"")
+
+X_test <- read.table("test/X_test.txt", quote="\"")
+y_test <- read.table("test/y_test.txt", quote="\"")
+subject_test <- read.table("test/subject_test.txt", quote="\"")
+
+features <- read.table("features.txt", quote="\"", colClasses = c("character"))
+activity_labels <- read.table("activity_labels.txt", quote="\"",col.names = c("ActivityId", "Activity"))
+
+###############################################################################################
+# 1. MERGING TRAINING and TEST Data Sets  to One Data Set                                     #
+# Binding sensor data using Cbind and rbind                                                   #
+###############################################################################################
+
+train_sensor_data 	<- cbind(cbind(X_train, subject_train), y_train)
+test_sensor_data	<- cbind(cbind(X_test, subject_test), y_test)
+sensor_data        <- rbind(train_sensor_data, test_sensor_data)
+
+###############################################################################################
+# 3. Adding Sensor Data Labels  using Features and Naming Subject and ActivityId              #
+###############################################################################################
+
+sensor_labels <- rbind(rbind(features, c(562, "Subject")), c(563, "ActivityId"))[,2]
+names(sensor_data) <- sensor_labels
+
+###############################################################################################
+# 2. Extracting Mean, Standard Deviation (STD) for each measurement (Subject and Actvity ID ) #
+###############################################################################################
+
+sensor_data_mean_std <- sensor_data[,grepl("mean|std|Subject|ActivityId", names(sensor_data))]
+
+###############################################################################################
+# 3. Uses descriptive activity names to name the activities in the data set using left_Join   #   
+###############################################################################################
+
+Sensor_data_mean_std <- left_join(sensor_data_mean_std, activity_labels, by = "ActivityId", match = "first")
+sensor_data_mean_std <- sensor_data_mean_std[,-1]
+
+###############################################################################################
+# 4. Appropriately labels the data set with descriptive names.                                # 
+# gsub() function replaces all matches of a string, if the parameter is a string vector,      #
+# returns a string vector of the same length and with the same attributes (after possible     #
+# coercion to character). Elements of string vectors which are not substituted will be        #
+# returned unchanged (including any declared encoding).                                       #
+# --Remove parentheses --                                                                     #   
+###############################################################################################
+
+names(sensor_data_mean_std) <- gsub('\\(|\\)',"",names(sensor_data_mean_std), perl = TRUE)
+
+###############################################################################################
+# 4. Make Descriptive Variable Names                                                          #
+###############################################################################################
+
+names(sensor_data_mean_std) <- make.names(names(sensor_data_mean_std))
+
+names(sensor_data_mean_std) <- gsub('Acc',"Acceleration",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('GyroJerk',"AngularAcceleration",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('Gyro',"AngularSpeed",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('Mag',"Magnitude",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('^t',"TimeDomain.",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('^f',"FrequencyDomain.",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('\\.mean',".Mean",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('\\.std',".StandardDeviation",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('Freq\\.',"Frequency.",names(sensor_data_mean_std))
+names(sensor_data_mean_std) <- gsub('Freq$',"Frequency",names(sensor_data_mean_std))
+
+###############################################################################################
+# 5.Create a second, independent tidy data set with the average of each variable for each     #
+#   activity and each subject.                                                                #
+# funs function provides a flexible way to generate a named list of functions for input to    #
+#   other functions like summarise_each.                                                      #  
+###############################################################################################
+
+View(Sensor_data_mean_std)
+sensor_avg_by_act_sub <-(Sensor_data_mean_std%>% group_by(Subject,Activity) %>% summarise_each(funs( mean)))
+write.table(sensor_avg_by_act_sub, file = "sensor_avg_by_act_sub.txt", sep="\t")
+print (sensor_avg_by_act_sub)
+
+###############################################################################################
+# END                                                                                         #  
+###############################################################################################
+
+
+
