@@ -1,6 +1,6 @@
 ###############################################################################################
 # Script:run_analysis.R                                                                       #   
-# CODE BOOK			Created By: RAVI PRATAP FEB 2016                 					                    #			
+# CODE BOOK			Created By: RAVI PRATAP FEB 2016                 					      #			
 # Setting Working Directory to the Data Storage in my Local Drive                             #
 # Use the Data link to Get the data for this Project                                          #
 # https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip      #
@@ -8,7 +8,7 @@
 ###############################################################################################
 
 ###############################################################################################
-# Setting Working Directory to the Data Storage in my Local Drive                             #
+## Setting Working Directory to the Data Storage in my Local Drive                            #
 ###############################################################################################
 library(dplyr)
 setwd("D:/LND/COURSERA_R/data/UCI HAR Dataset")
@@ -100,9 +100,10 @@ names(sensor_data_mean_std) <- gsub('Freq$',"Frequency",names(sensor_data_mean_s
 ###############################################################################################
 
 View(Sensor_data_mean_std)
-sensor_avg_by_act_sub <-(Sensor_data_mean_std%>% group_by(Subject,Activity) %>% summarise_each(funs( mean)))
-write.table(sensor_avg_by_act_sub, file = "sensor_avg_by_act_sub.txt", sep="\t")
-print (sensor_avg_by_act_sub)
+tidy <-(Sensor_data_mean_std%>% group_by(Subject,Activity) %>% summarise_each(funs( mean)))
+write.table(tidy, file = "tidy.txt", sep="\t")
+
+print (tidy)
 
 ###############################################################################################
 # END                                                                                         #  
