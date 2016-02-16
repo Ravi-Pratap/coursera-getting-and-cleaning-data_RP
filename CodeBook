@@ -227,7 +227,7 @@ names(sensor_data_mean_std) <- gsub('Freq$',"Frequency",names(sensor_data_mean_s
 
 View(Sensor_data_mean_std)
 tidy <-(Sensor_data_mean_std%>% group_by(Subject,Activity) %>% summarise_each(funs( mean)))
-write.table(tidy, file = "tidy.txt", sep="\t")
+write.table(tidy, file = "tidy.txt", sep="\t", row.name=FALSE)
 
 print (tidy)
 
