@@ -226,13 +226,11 @@ names(sensor_data_mean_std) <- gsub('Freq$',"Frequency",names(sensor_data_mean_s
 ###############################################################################################
 
 View(Sensor_data_mean_std)
-sensor_avg_by_act_sub <-(Sensor_data_mean_std%>% group_by(Subject,Activity) %>% summarise_each(funs( mean)))
-write.table(sensor_avg_by_act_sub, file = "sensor_avg_by_act_sub.txt", sep="\t")
-print (sensor_avg_by_act_sub)
+tidy <-(Sensor_data_mean_std%>% group_by(Subject,Activity) %>% summarise_each(funs( mean)))
+write.table(tidy, file = "tidy.txt", sep="\t")
+
+print (tidy)
 
 ###############################################################################################
 # END                                                                                         #  
 ###############################################################################################
-
-
-
